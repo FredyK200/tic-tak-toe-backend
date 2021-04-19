@@ -8,14 +8,13 @@ var server = app.listen(process.env.PORT);
 // Static Files
 app.use(express.static('public'));
 
-
 // Socket Setup
 var io = socket(server);
-
 
 var turn = "X";
 var players= {playerX: false, playerO: false};
 var winner = "";
+
 var board = [
     [" ", " ", " "],    // 0, 1, 2
     [" ", " ", " "],    // 3, 4, 5
@@ -195,4 +194,10 @@ io.on("connection", function(socket){
                 break;
         }
     })
+
+    socket.on('message', message => {
+        io.emit('message', `${message[0]}: ${message[1]}`);
+    });
 });
+});
+
