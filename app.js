@@ -1,5 +1,9 @@
 var express = require("express");
-var socket = require("socket.io");
+var socket = require("socket.io")(httpServer, {
+    cors: {
+        origin: '*'
+    }
+});
 
 // App Setup
 var app = express();
@@ -199,5 +203,3 @@ io.on("connection", function(socket){
         io.emit('message', `${message[0]}: ${message[1]}`);
     })
 })
-});
-
