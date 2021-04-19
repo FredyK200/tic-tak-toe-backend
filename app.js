@@ -195,9 +195,9 @@ io.on("connection", function(socket){
         }
     })
 
-    socket.on('message', message => {
+    socket.on("message", message => {
         io.emit('message', `${message[0]}: ${message[1]}`);
-    });
-});
+    })
+})
 });
 
