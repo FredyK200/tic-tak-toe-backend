@@ -1,9 +1,5 @@
 var express = require("express");
-var socket = require("socket.io")(httpServer, {
-    cors: {
-        origin: '*'
-    }
-});
+var socket = require("socket.io");
 
 // App Setup
 var app = express();
@@ -100,7 +96,10 @@ io.on("connection", function(socket){
         }
         io.sockets.emit("players", players);
     })
-
+	
+    socket.on("message", message => {
+        io.sockets.emit('message', `${message[0]}: ${message[1]}`);
+    })
 
     socket.on("move", data => {
         switch(data[0]) {
@@ -197,9 +196,5 @@ io.on("connection", function(socket){
                 }
                 break;
         }
-    })
-
-    socket.on("message", message => {
-        io.emit('message', `${message[0]}: ${message[1]}`);
     })
 })
