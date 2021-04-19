@@ -87,6 +87,9 @@ io.on("connection", function(socket){
         io.sockets.emit("turn", turn);
         io.sockets.emit("players", players);
     })
+	socket.on("clearChat", player => {
+        io.sockets.emit("clearChat", player);
+    })
 
     socket.on("selection", selection => {
         if (selection == "X" && !players['playerX']) {
